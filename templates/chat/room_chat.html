@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ room.name }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-yBc/7JkVDkLgynxosxKPHmgiaL8lI81xP0We4dxtvTezVXJWmVZvmv45A+7VrFm7k+YXiSnCxelPL7tY+UoY3A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Цвет фона */
+            color: #fff; /* Цвет текста */
+        }
+        #container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #333; /* Цвет фона контейнера */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #messages {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .message {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #444; /* Цвет фона сообщения */
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        .message p {
+            margin: 0;
+            color: #fff;
+        }
+        .message img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        form {
+            margin-top: 20px;
+            background-color: #333; /* Цвет фона формы */
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+            background-color: #555; /* Цвет фона поля выбора файла */
+            color: #fff;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff; /* Цвет кнопки отправки */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3; /* Цвет кнопки отправки при наведении */
+        }
+        .fa-comment {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>{{ room.name }}</h1>
+        <div id="messages">
+            {% for message in messages %}
+            <div class="message">
+                <p><i class="fas fa-comment"></i> {{ message.user.username }}:</p>
+                <p>{{ message.content }}</p>
+                {% if message.image %}
+                <img src="{{ message.image.url }}" alt="Message Image">
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <label for="id_image">Upload Image:</label>
+            <input type="file" id="id_image" name="image">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</body>
+</html>

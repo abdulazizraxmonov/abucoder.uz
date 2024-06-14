@@ -1,0 +1,307 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Abdulaziz Rakhmonov</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #282c34;
+            color: #ffffff;
+        }
+        header {
+            position: relative;
+            background: linear-gradient(45deg, #007bff00, #343a40), url("{% static 'images/test1.gif' %}") no-repeat center center;
+            background-size: cover;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        header .container {
+            position: relative;
+            z-index: 2;
+        }
+        header .display-4 {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        header .lead {
+            font-size: 1.25rem;
+        }
+        .intro {
+            padding: 2rem 0;
+        }
+        .card {
+            background-color: #212529;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            font-weight: bold;
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        .project {
+            background-color: #343a40;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .project h4 {
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .project p {
+            margin-bottom: 0.5rem;
+        }
+        .list-group-item {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        footer {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #282c34;
+            color: #ffffff;
+        }
+
+        .navbar {
+            background-color: #343a40;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+
+        .navbar-nav .dropdown-menu {
+            background-color: #343a40;
+            border: none;
+        }
+
+        .navbar-nav .dropdown-item {
+            color: #ffffff;
+        }
+
+        .navbar-nav .dropdown-item:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .form-inline .form-control {
+            background-color: #212529;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+        }
+
+        .form-inline .form-control::placeholder {
+            color: #6c757d;
+        }
+
+        .form-inline .btn {
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .form-inline .btn:hover {
+            background-color: #ffffff;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .skill-card {
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgb(255, 255, 255);
+            padding: 20px;
+            text-align: center;
+        }
+        .skill-image {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .skill-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .skill-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    {% include 'navbar.html' %}
+    <header class="text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">My Portfolio</h1>
+            <p class="lead">Showcasing my projects and skills</p>
+        </div>
+    </header>
+    <main class="my-5">
+        <div class="container">
+            <section class="intro text-center mb-5">
+                <h2>About Me</h2>
+                <p class="skill-name">{{ about.fullname }}</p>
+                <p>{{ about.description }}</p>
+                <h1>Skill List</h1>
+                <ul class="skill-list">
+                    {% for skill in skills %}
+                        <li class="skill-card">
+                            <div class="skill-image">
+                                <img src="{{ skill.image.url }}" alt="{{ skill.name }}">
+                            </div>
+                            <p class="skill-name">{{ skill.name }}</p>
+                        </li>
+                    {% empty %}
+                        <li>No skills found.</li>
+                    {% endfor %}
+                </ul>
+            </section>
+            <section class="categories">
+                <div class="row">
+                    {% for category, projects in projects_by_category.items %}
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                    <h3>{{ category.name }}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div id="carousel{{ forloop.counter }}" class="carousel slide" data-ride="carousel" data-interval="2000">
+                                        <div class="carousel-inner">
+                                            {% for project in projects %}
+                                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                                    <div class="project mb-4">
+                                                        <h4>{{ project.title }}</h4>
+                                                        <p class="description">{{ project.description | truncatechars:100 }}</p>
+                                                        <p class="full-description" style="display: none;">{{ project.description }}</p>
+                                                        {% if project.image %}
+                                                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-fluid mb-2">
+                                                        {% endif %}
+                                                        <p>Skills:</p>
+                                                        <li class="list-group-item">{{ project.skills }}</li>
+                                                        <ul class="list-group list-group-flush">
+                                                        {% if project.url %}
+                                                            <a href="{{ project.url }}" class="btn btn-primary mt-2">View Project</a>
+                                                        {% endif %}
+                                                        <button class="btn btn-primary btn-show-more mt-2" data-toggle="modal" data-target="#projectModal{{ project.id }}">Показать больше</button>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carousel{{ forloop.counter }}" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carousel{{ forloop.counter }}" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="text-white text-center py-4">
+        <div class="container">
+            <p>&copy; 2024 My Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+    {% for category, projects in projects_by_category.items %}
+        {% for project in projects %}
+            <div class="modal fade" id="projectModal{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel{{ project.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="projectModalLabel{{ project.id }}">{{ project.title }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{ project.description }}</p>
+                            <li class="list-group-item">{{ project.skills }}</li>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            {% if project.url %}
+                                <a href="{{ project.url }}" class="btn btn-primary">View Project</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <style>
+        .modal-body {
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+        .modal-body p {
+            font-size: 16px;
+            margin: 0;
+            word-wrap: break-word;
+            color: black;
+        }
+    </style>
+        <script>
+            // После 3 секунд автоматическая прокрутка страницы
+            setTimeout(function() {
+                window.scrollBy(0, 600); // Прокрутка на 200 пикселей вниз
+            }, 3000);
+        </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

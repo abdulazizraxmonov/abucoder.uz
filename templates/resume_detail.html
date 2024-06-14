@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ resume.name }} - Resume</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #2e2e2e;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        .back-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #e0b74a;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        h1 {
+            margin-top: 0;
+            border-bottom: 2px solid #e0b74a;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        .resume-item {
+            margin-bottom: 20px;
+        }
+        .resume-item p {
+            margin: 5px 0;
+        }
+        .resume-item strong {
+            font-weight: bold;
+            color: #e0b74a;
+        }
+        .resume-photo {
+            max-width: 150px;
+            display: block;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+        }
+        .download-resume {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e0b74a;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .download-resume:hover {
+            background-color: #d1a64a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/"><i class="fas fa-arrow-left back-icon"></i></a>
+        <img src="{{ resume.photo.url }}" alt="Photo" class="resume-photo">
+        <h1>{{ resume.name }}</h1>
+        <div class="resume-item">
+            <p><strong>Work:</strong> {{ resume.work }}</p>
+            <p><strong>Phone:</strong> {{ resume.phone }}</p>
+            <p><strong>Year of Birth:</strong> {{ resume.year_of_birth }}</p>
+            <p><strong>Place of Birth:</strong> {{ resume.place_of_birth }}</p>
+            <p><strong>Technical Skills:</strong> {{ resume.technical_skills }}</p>
+            <p><strong>Soft Skills:</strong> {{ resume.soft_skills }}</p>
+            <p><strong>Education:</strong> {{ resume.education }}</p>
+            <p><strong>Languages:</strong> {{ resume.languages }}</p>
+            <p><strong>Certificates:</strong> {{ resume.certificates }}</p>
+            <p><strong>Projects:</strong></p>
+            <p><strong>Projects:</strong></p>
+            <ul class="projects">
+                {% for project in resume.project.all %}
+                <li>{{ project.name }}</li>
+                {% endfor %}
+            </ul>
+                              
+        </div>
+        <a href="{{ resume.download_resume.url }}" class="download-resume">Download Resume</a>
+    </div>
+</body>
+</html>

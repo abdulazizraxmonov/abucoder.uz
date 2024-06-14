@@ -1,0 +1,184 @@
+<!-- about.html -->
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>About Me</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #121212;
+            color: #ffffff;
+        }
+
+        .intro {
+            background: #1f1f1f;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .intro h1, .intro h2 {
+            margin: 0;
+        }
+
+        .intro p {
+            margin: 20px 0 0;
+            font-size: 1.2em;
+        }
+
+        .skills {
+            padding: 50px 20px;
+            background: #1e1e1e;
+        }
+
+        .skills h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            color: #ffffff;
+        }
+
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: #2b2b2b;
+            border: 1px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 150px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-image img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .skill-name {
+            margin: 10px 0;
+            font-size: 1.1em;
+            color: #ffffff;
+        }
+        .navbar {
+            background-color: #343a40;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+
+        .navbar-nav .dropdown-menu {
+            background-color: #343a40;
+            border: none;
+        }
+
+        .navbar-nav .dropdown-item {
+            color: #ffffff;
+        }
+
+        .navbar-nav .dropdown-item:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .form-inline .form-control {
+            background-color: #212529;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+        }
+
+        .form-inline .form-control::placeholder {
+            color: #6c757d;
+        }
+
+        .form-inline .btn {
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .form-inline .btn:hover {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+{% include 'navbar.html' %}
+    <section class="intro text-center mb-5">
+        <h2>About Me</h2>
+        {% if about %}
+            <h1>{{ about.fullname }}</h1>
+            <p>{{ about.description }}</p>
+        {% else %}
+            <p>No information available.</p>
+        {% endif %}
+    </section>
+
+    <section class="skills">
+        <h1>Skill List</h1>
+        <ul class="skill-list">
+            {% for skill in skills %}
+                <li class="skill-card">
+                    <div class="skill-image">
+                        <img src="{{ skill.image.url }}" alt="{{ skill.name }}">
+                    </div>
+                    <p class="skill-name">{{ skill.name }}</p>
+                </li>
+            {% empty %}
+                <li>No skills found.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <footer class="text-white text-center py-4">
+        <div class="container">
+            <p>&copy; 2024 My Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+    <!-- Добавленный скрипт -->
+    <script>
+        // После 3 секунд автоматическая прокрутка страницы
+        setTimeout(function() {
+            window.scrollBy(0, 600); // Прокрутка на 200 пикселей вниз
+        }, 3000);
+    </script>
+    <!-- Завершение скрипта -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

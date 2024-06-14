@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .skill-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        .skill-image {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .skill-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .skill-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Skill List</h1>
+    <ul class="skill-list">
+        {% for skill in skills %}
+            <li class="skill-card">
+                <div class="skill-image">
+                    <img src="{{ skill.image.url }}" alt="{{ skill.name }}">
+                </div>
+                <p class="skill-name">{{ skill.name }}</p>
+            </li>
+        {% empty %}
+            <li>No skills found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

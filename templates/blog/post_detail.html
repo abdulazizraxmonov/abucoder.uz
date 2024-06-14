@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <p>{{ comment.body }}</p>
+                <p><small>by {{ comment.name }} on {{ comment.created_date }}</small></p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add a comment</h2>
+    {% if new_comment %}
+        <p>Your comment has been added.</p>
+    {% else %}
+        <form method="post">
+            {{ comment_form.as_p }}
+            {% csrf_token %}
+            <button type="submit">Add comment</button>
+        </form>
+    {% endif %}
+</body>
+</html>
